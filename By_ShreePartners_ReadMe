@@ -6,6 +6,4 @@ has been created and tested.
 #We have imported the webService clients jars on our business application for busy 
 flights in order to test the application.
 #Server port 8888 and and 8080 has been configured for the application, application and WebService respectively
-#Static data has been used as request for testing the application. 
-
- 
+#Static data has been used as request for testing the application.
