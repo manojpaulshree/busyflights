@@ -2,8 +2,7 @@
 #Rest-WebServices has been deployed on our local environment and simultaneously the WS clients 
 has been created and tested.
 #Please note that we have not shared the WebServices and WebService Clients source codes in this repository. 
-#We have created both WebServices and WebService clients on our local environment.
 #We have imported the webService clients jars on our business application for busy 
 flights in order to test the application.
-#Server port 8888 and and 8080 has been configured for the application, application and WebService respectively
+#Server port 8888 and and 8080 has been configured for the application and WebService respectively
 #Static data has been used as request for testing the application.
