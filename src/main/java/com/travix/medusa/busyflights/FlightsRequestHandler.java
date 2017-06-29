@@ -14,6 +14,7 @@ import com.travix.medusa.busyflights.domain.crazyair.CrazyAirRequest;
 import com.travix.medusa.busyflights.domain.crazyair.CrazyAirResponse;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetRequest;
 import com.travix.medusa.busyflights.domain.toughjet.ToughJetResponse;
+import com.travix.medusa.busyflights.supplier.Suppliers;
 
 /*
  * 
@@ -109,7 +110,7 @@ public class FlightsRequestHandler {
 			if (object instanceof CrazyAirResponse){
 				busyFlightsResponse = new BusyFlightsResponse();
 				busyFlightsResponse.setAirline(((CrazyAirResponse) object).getAirline());
-				busyFlightsResponse.setSupplier(((CrazyAirResponse) object).getAirline());
+				busyFlightsResponse.setSupplier(Suppliers.SUPPLIER_CRAZY_AIR);
 				busyFlightsResponse.setFare(((CrazyAirResponse) object).getPrice());
 				busyFlightsResponse.setDepartureAirportCode(((CrazyAirResponse) object).getDepartureAirportCode());
 				busyFlightsResponse.setDestinationAirportCode(((CrazyAirResponse) object).getDestinationAirportCode());
@@ -121,7 +122,7 @@ public class FlightsRequestHandler {
 			}else if(object instanceof ToughJetResponse){
 				busyFlightsResponse = new BusyFlightsResponse();
 				busyFlightsResponse.setAirline(((ToughJetResponse) object).getCarrier());
-				busyFlightsResponse.setSupplier(((ToughJetResponse) object).getCarrier());
+				busyFlightsResponse.setSupplier(Suppliers.SUPPLIER_TOUGH_JET);
 				busyFlightsResponse.setFare((((ToughJetResponse) object).getBasePrice() + ((ToughJetResponse) object).getTax()) - 
 						(((ToughJetResponse) object).getDiscount()/100)* (((ToughJetResponse) object).getBasePrice()));
 				busyFlightsResponse.setDepartureAirportCode(((ToughJetResponse) object).getDepartureAirportName());
