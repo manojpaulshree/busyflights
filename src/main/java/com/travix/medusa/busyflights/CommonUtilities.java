@@ -42,8 +42,8 @@ public class CommonUtilities {
 	
 	/*
 	 * Sorting mechanism on the base of fare here and a sorted list
-	will be returned.
-	*/
+	 * will be returned.
+	 */
 	public List<?> sortOnFlightsFare(List<Object> allFlightsList) {
 		SortFlightList sortFlightList=new SortFlightList();
 		sortFlightList.sortList(allFlightsList);
