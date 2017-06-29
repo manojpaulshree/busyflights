@@ -84,7 +84,6 @@ public class FlightsRequestHandler {
 			allFlightsList.add(object);
 		}
 		
-		//to be implemented
 		System.out.println("Before Sorting >>>>>>");
 		for(Object obj:allFlightsList)
 			System.out.println(obj);
@@ -100,7 +99,8 @@ public class FlightsRequestHandler {
 	}
 
 	/*
-	 * finally the response object to be shared
+	 * finally the response object to be shared will be wrapped in this method
+	 * returning the list of BusyFlightsResponse object(s)
 	 * */
 	private List<Object> createBusyFlightsResponse(List<Object> allFlightsList) {
 		BusyFlightsResponse busyFlightsResponse = null;
