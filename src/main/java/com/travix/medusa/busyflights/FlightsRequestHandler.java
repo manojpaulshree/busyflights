@@ -27,10 +27,10 @@ public class FlightsRequestHandler {
 	 * Entry point for processing request
 	 * */
 	public void processRequest(BusyFlightsRequest busyFlightsRequest) {
-		if(busyFlightsRequest.getNumberOfPassengers()<=4)
+		if(busyFlightsRequest.getNumberOfPassengers()<=4 && busyFlightsRequest.getNumberOfPassengers()>0)
 			getAllFlightsInformation(busyFlightsRequest);
 		else
-			System.out.println("Maximum number of passengers allowed: 4");
+			System.out.println("Number of passengers should be 1 to 4");
 	}
 	
 	@SuppressWarnings("unchecked")
