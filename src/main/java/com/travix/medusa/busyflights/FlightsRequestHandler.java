@@ -22,27 +22,31 @@ import com.travix.medusa.busyflights.supplier.Suppliers;
  * 
  * */
 public class FlightsRequestHandler {
-
+	private List<BusyFlightsResponse> responseList = new ArrayList<BusyFlightsResponse>();
+	private CommonUtilities commonUtilities = new CommonUtilities();
+	
 	/*
 	 * Entry point for processing request
 	 * */
-	public void processRequest(BusyFlightsRequest busyFlightsRequest) {
-		if(busyFlightsRequest.getNumberOfPassengers()<=4 && busyFlightsRequest.getNumberOfPassengers()>0)
+	public String processRequest(BusyFlightsRequest busyFlightsRequest) {
+		String jSON = "";
+		if(busyFlightsRequest.getNumberOfPassengers()<=4 && busyFlightsRequest.getNumberOfPassengers()>0){
 			getAllFlightsInformation(busyFlightsRequest);
+			jSON = commonUtilities.converToJSON(responseList);
+		}
 		else
 			System.out.println("Number of passengers should be 1 to 4");
+		return jSON;
 	}
-	
+	/*
+	 * Transform the request, fetch the data and transform the response as per the requirement.
+	 * */
 	@SuppressWarnings("unchecked")
 	private void getAllFlightsInformation(BusyFlightsRequest busyFlightsRequest) {
-		CommonUtilities commonUtilities = new CommonUtilities();
-		
-		CrazyAirRequest cAReq = createRequestForCrazyAir(busyFlightsRequest);
-		ToughJetRequest tJReq = createRequestForToughJet(busyFlightsRequest);
 		
 		FlightsInformationClient flightsInformationClient = new FlightsInformationClientImpl();
 		//Call to the WebService client for CrazyAir
-		String crazyAirJSONResponse = flightsInformationClient.getAllFlightsFromCrazyAir(cAReq);
+		String crazyAirJSONResponse = flightsInformationClient.getAllFlightsFromCrazyAir(createRequestForCrazyAir(busyFlightsRequest));
 		
 		System.out.println("JSON Response from CrazyAir WS Client");
 	    System.out.println(crazyAirJSONResponse);
@@ -51,7 +55,7 @@ public class FlightsRequestHandler {
 		List<CrazyAirResponse> crazyAirList = (List<CrazyAirResponse>) commonUtilities.jSonToObjectCrazyAir(crazyAirJSONResponse);
 		
 		//Call to the WebService client for ToughJet
-		String toughJetJSONResponse = flightsInformationClient.getAllFlightsFromToughJet(tJReq);
+		String toughJetJSONResponse = flightsInformationClient.getAllFlightsFromToughJet(createRequestForToughJet(busyFlightsRequest));
 		
 		System.out.println("JSON Response from ToughJet WS Client");
 	    System.out.println(toughJetJSONResponse);
@@ -93,19 +97,16 @@ public class FlightsRequestHandler {
 		for(Object obj:allFlightsList)
 			System.out.println(obj);
 	
-		allFlightsList = createBusyFlightsResponse(allFlightsList);
-		System.out.println(allFlightsList);
-		
-		
+		createBusyFlightsResponse(allFlightsList);
+		System.out.println(responseList);
 	}
 
 	/*
 	 * finally the response object to be shared will be wrapped in this method
 	 * returning the list of BusyFlightsResponse object(s)
 	 * */
-	private List<Object> createBusyFlightsResponse(List<Object> allFlightsList) {
+	private void createBusyFlightsResponse(List<Object> allFlightsList) {
 		BusyFlightsResponse busyFlightsResponse = null;
-		List<Object> responseList = new ArrayList<Object>();
 		for (Object object : allFlightsList) {
 			if (object instanceof CrazyAirResponse){
 				busyFlightsResponse = new BusyFlightsResponse();
@@ -133,7 +134,6 @@ public class FlightsRequestHandler {
 				responseList.add(busyFlightsResponse);
 			}
 		}
-		return responseList;
 	}
 
 	/*

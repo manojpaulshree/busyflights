@@ -19,6 +19,6 @@ public class BusyFlightsApplication {
 		busyFlightsRequest.setReturnDate("2017-12-15");
 		busyFlightsRequest.setNumberOfPassengers(4);
 		
-		new FlightsRequestHandler().processRequest(busyFlightsRequest);
+		String response = new FlightsRequestHandler().processRequest(busyFlightsRequest);
 	}
 }
